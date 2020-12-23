@@ -1,17 +1,21 @@
 using UnityEngine;
 
-public class MoveUpDown : MonoBehaviour
+namespace VertexFragment
 {
-    private Vector3 initialPosition;
-
-    void Start()
+    public class MoveUpDown : MonoBehaviour
     {
-        initialPosition = transform.position;
-    }
+        private Vector3 initialPosition;
 
-    void Update()
-    {
-        float offset = Mathf.Sin(Time.time) * 0.5f;
-        transform.position = new Vector3(initialPosition.x, initialPosition.y + offset, initialPosition.z);
+        void Start()
+        {
+            initialPosition = transform.position;
+        }
+
+        void Update()
+        {
+            float offset = Mathf.Sin(Time.time) * 0.5f;
+            transform.position = new Vector3(initialPosition.x, initialPosition.y + offset, initialPosition.z);
+        }
     }
 }
+

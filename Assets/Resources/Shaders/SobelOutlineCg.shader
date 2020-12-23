@@ -88,20 +88,39 @@ Shader "VertexFragment/SobelOutlineCg"
                 float3 color = sceneColor;
                 float3 offset = float3((1.0 / _ScreenParams.x), (1.0 / _ScreenParams.y), 0.0) * _OutlineThickness;
 
-                float depth01 = Linear01Depth(tex2D(_CameraDepthTexture, input.texcoord.xy).r);
+                // -------------------------------------------------------------------------
+                // Check if this geometry is occluded
+                // -------------------------------------------------------------------------
+
+                float occlusion = SobelSample(_OcclusionDepthMap, input.texcoord.xy, offset);
+
+                if (occlusion > 0.0)
+                {
+                    return float4(sceneColor, 1.0);
+                }
+
+                // -------------------------------------------------------------------------
+                // Fade out the outline for distant objects.
+                // -------------------------------------------------------------------------
 
                 // Generate an alpha value based on scene depth.
                 //     >= 0.4 = No outline
                 //      > 0.2 = Partial outline
                 //     <= 0.2 = Full outline
-                float minDepth = 0.2;
+
+                float depth01   = Linear01Depth(tex2D(_CameraDepthTexture, input.texcoord.xy).r);
+                float minDepth  = 0.2;
                 float depthSpan = 0.2;
-                float alpha = lerp(1.0, 0.0, (clamp(depth01, minDepth, minDepth + depthSpan) - minDepth) / depthSpan);
+                float alpha     = lerp(1.0, 0.0, (clamp(depth01, minDepth, minDepth + depthSpan) - minDepth) / depthSpan);
 
                 if (alpha <= 0.0)
                 {
                     return float4(sceneColor, 1.0);
                 }
+
+                // -------------------------------------------------------------------------
+                // Generate the outline
+                // -------------------------------------------------------------------------
 
                 // Get the sobel depth from our pre-sampled linear depth values
                 float sobelDepth = SobelSampleDepth(_CameraDepthTexture, input.texcoord.xy, offset);

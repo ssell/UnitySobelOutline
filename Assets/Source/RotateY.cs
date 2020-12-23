@@ -1,9 +1,13 @@
 using UnityEngine;
 
-public class RotateY : MonoBehaviour
+namespace VertexFragment
 {
-    void Update()
+    public class RotateY : MonoBehaviour
     {
-        transform.RotateAround(transform.position, transform.up, Time.deltaTime * 45.0f);
+        void Update()
+        {
+            transform.RotateAround(transform.position, transform.up, Time.deltaTime * 45.0f);
+        }
     }
+
 }

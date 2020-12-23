@@ -1,10 +1,14 @@
 using UnityEngine;
 
-public class ShrinkAndGrow : MonoBehaviour
+namespace VertexFragment
 {
-    void Update()
+    public class ShrinkAndGrow : MonoBehaviour
     {
-        float scale = (Mathf.Sin(Time.time) + 1.5f) * 0.5f;
-        transform.localScale = new Vector3(scale, scale, scale);
+        void Update()
+        {
+            float scale = (Mathf.Sin(Time.time) + 1.5f) * 0.5f;
+            transform.localScale = new Vector3(scale, scale, scale);
+        }
     }
 }
+
