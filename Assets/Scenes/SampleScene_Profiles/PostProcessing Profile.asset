@@ -17,22 +17,22 @@ MonoBehaviour:
     overrideState: 1
     value: 1
   thickness:
-    overrideState: 0
+    overrideState: 1
     value: 1
   depthMultiplier:
-    overrideState: 0
+    overrideState: 1
     value: 1
   depthBias:
     overrideState: 1
     value: 10
   normalMultiplier:
-    overrideState: 0
+    overrideState: 1
     value: 1
   normalBias:
     overrideState: 1
-    value: 10
+    value: 1
   color:
-    overrideState: 0
+    overrideState: 1
     value: {r: 0, g: 0, b: 0, a: 1}
 --- !u!114 &11400000
 MonoBehaviour:
